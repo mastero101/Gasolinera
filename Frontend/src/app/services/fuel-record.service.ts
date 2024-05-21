@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FuelRecordService {
-  private apiUrl = 'http://localhost:1000/fuelrecords'; // URL de la API
+  private apiUrl2 = 'http://localhost:1000/fuelrecords'; // URL de la API
+  private apiUrl = 'https://masterodatabase.cloud/fuelrecords';
 
   constructor() {}
 
