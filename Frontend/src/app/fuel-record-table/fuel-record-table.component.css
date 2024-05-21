@@ -1,0 +1,84 @@
+mat-form-field {
+    margin-left: 2%;
+    margin-bottom: -2%;
+    font-size: 18px;
+    width: 40%;
+}
+
+mat-cell {
+  width: auto;
+}
+
+mat-paginator {
+  width: 100%;
+  @media (max-width: 600px) {
+    width: 186.5%;
+  }
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -75%;
+  margin-top: 1%;
+  margin-bottom: 3%;
+  @media (max-width: 600px) {
+      flex-direction: row; 
+      width: 100%;
+      align-items: center; 
+      justify-content: space-between; 
+      margin-top: 15px; 
+      margin-left: 20%;
+  }
+}
+
+input {
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 16px;
+  width: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.table-container {
+  position: relative;
+  overflow-x: auto;
+  margin-top: 2vw;
+  width: 100%;
+  margin-left: -2vw; 
+  margin-right: -2vw; 
+  @media screen and (min-width: 900px) {
+      margin-left: 2%;
+      margin-top: -2vw;
+      width: 97%;
+      margin-bottom: 2%;
+  }
+}
+
+.column-usuario 
+.column-estacion 
+.column-fecha 
+.column-litros 
+.column-pesos
+.column-kilometraje
+.column-kmsRecorrido
+.column-kmsPorLitro {
+  width: auto;
+}
+
+/* Adjust column widths for smaller screens */
+@media (max-width: 600px) {
+  .column-usuario,
+  .column-estacion,
+  .column-fecha,
+  .column-litros,
+  .column-pesos,
+  .column-kilometraje,
+  .column-kmsRecorrido,
+  .column-kmsPorLitro {
+    width: auto;
+  }
+}

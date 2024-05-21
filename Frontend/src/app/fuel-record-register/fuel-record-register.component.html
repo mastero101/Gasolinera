@@ -1,0 +1,49 @@
+<form [formGroup]="registrationForm" (ngSubmit)="Registrar()">
+    <mat-form-field appearance="fill">
+      <mat-label>Usuario</mat-label>
+      <mat-select formControlName="usuario">
+        <mat-option value="Usuario">Usuario</mat-option>
+        <mat-option value="Estacion">Estacion</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Estación</mat-label>
+      <input matInput type="text" formControlName="estacion">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fecha" placeholder="dd/mm/yyyy">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Litros</mat-label>
+      <input matInput type="number" formControlName="litros">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Pesos</mat-label>
+      <input matInput type="number" formControlName="pesos">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Kilometraje</mat-label>
+      <input matInput type="number" formControlName="kilometraje">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Kms Recorrido</mat-label>
+      <input matInput type="number" formControlName="kmsRecorrido">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Kms por Litro</mat-label>
+      <input matInput type="number" formControlName="kmsPorLitro">
+    </mat-form-field>
+  
+    <button mat-stroked-button color="accent" type="submit" [disabled]="!registrationForm.valid">Submit</button>
+</form>
+  

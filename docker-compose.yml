@@ -1,0 +1,11 @@
+version: '3'
+services:
+  frontend:
+    image: frontend-gas
+    ports:
+      - "80:80"
+
+  backend:
+    image: backend-gas
+    ports:
+      - "1000:1000"
