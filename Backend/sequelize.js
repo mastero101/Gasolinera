@@ -9,6 +9,18 @@ const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, proces
   dialect: 'mysql'
 });
 
+const User = sequelize.define('User', {
+  username: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
+
 const FuelRecord = sequelize.define('FuelRecord', {
   usuario: {
     type: DataTypes.STRING
@@ -37,4 +49,4 @@ const FuelRecord = sequelize.define('FuelRecord', {
 });
 
 // Exportar sequelize y el modelo
-module.exports = { sequelize, FuelRecord };
+module.exports = { sequelize, User, FuelRecord };

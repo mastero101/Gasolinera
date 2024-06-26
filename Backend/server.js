@@ -2,9 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const dotenv = require('dotenv');
-const { sequelize, FuelRecord } = require('./sequelize');
+const { sequelize, User, FuelRecord } = require('./sequelize');
 const { Op } = require('sequelize');
 const swaggerDefinitions = require('./swagger');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 dotenv.config();
 
@@ -20,6 +22,49 @@ sequelize.sync().then(() => {
 }).catch(err => {
   console.error('Error al crear la tabla: ', err);
 });
+
+// Ruta de registro de usuario
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const newUser = await User.create({ username, password: hashedPassword });
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error('Error al registrar usuario:', error); // Agrega un log para el error
+    res.status(400).json({ error: 'Error al registrar usuario', details: error.message });
+  }
+});
+
+
+// Ruta de login de usuario
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ where: { username } });
+    if (user && await bcrypt.compare(password, user.password)) {
+      const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.json({ token });
+    } else {
+      res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+// Middleware para proteger rutas
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
+};
 
 /**
  * @swagger

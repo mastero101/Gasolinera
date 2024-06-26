@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
@@ -28,6 +29,10 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { FuelRecordTableComponent } from './fuel-record-table/fuel-record-table.component';
 import { FuelRecordRegisterComponent } from './fuel-record-register/fuel-record-register.component';
 import { FuelRecordEditComponent } from './fuel-record-edit/fuel-record-edit.component';
+import { LoginComponent } from './login/login.component';
+
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guard/auth.guard';
 
 @NgModule({
   declarations: [	
@@ -35,6 +40,7 @@ import { FuelRecordEditComponent } from './fuel-record-edit/fuel-record-edit.com
       FuelRecordTableComponent,
       FuelRecordRegisterComponent,
       FuelRecordEditComponent,
+      LoginComponent,
       SideNavComponent,
    ],
   imports: [
@@ -42,6 +48,7 @@ import { FuelRecordEditComponent } from './fuel-record-edit/fuel-record-edit.com
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FormsModule,
     MatSidenavModule,
     MatListModule,
@@ -60,7 +67,7 @@ import { FuelRecordEditComponent } from './fuel-record-edit/fuel-record-edit.com
     MatAutocompleteModule,
     MatSnackBarModule,
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
