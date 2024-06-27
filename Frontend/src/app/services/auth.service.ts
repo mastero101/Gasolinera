@@ -7,8 +7,8 @@ import { catchError, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:1000';
-  private apiUrl2 = 'https://masterodatabase.cloud/fuelrecords';
+  private apiUrl2 = 'http://localhost:1000';
+  private apiUrl = 'https://masterodatabase.cloud/fuelrecords';
 
   private authStatus = new BehaviorSubject<boolean>(this.isAuthenticated());
 
