@@ -23,28 +23,52 @@ sequelize.sync().then(() => {
   console.error('Error al crear la tabla: ', err);
 });
 
-// Ruta de registro de usuario
-app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+const isAdmin = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  if (decoded.role === 'admin') {
+    next();
+  } else {
+    res.status(403).json({ error: 'Acceso denegado' });
+  }
+};
+
+// Ruta de registro de usuario solo para administradores
+app.post('/register', isAdmin, async (req, res) => {
+  const { username, password, role } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
-    const newUser = await User.create({ username, password: hashedPassword });
+    const newUser = await User.create({ username, password: hashedPassword, role });
     res.status(201).json(newUser);
   } catch (error) {
-    console.error('Error al registrar usuario:', error); // Agrega un log para el error
     res.status(400).json({ error: 'Error al registrar usuario', details: error.message });
   }
 });
 
+// Ruta temporal para crear un usuario administrador
+app.post('/create-admin', async (req, res) => {
+  const { username, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  try {
+    const newUser = await User.create({
+      username,
+      password: hashedPassword,
+      role: 'admin'
+    });
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(400).json({ error: 'Error al crear el administrador', details: error.message });
+  }
+});
 
-// Ruta de login de usuario
+
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {
     const user = await User.findOne({ where: { username } });
     if (user && await bcrypt.compare(password, user.password)) {
-      const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      res.json({ token });
+      const token = jwt.sign({ username: user.username, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+      res.json({ token, role: user.role });
     } else {
       res.status(401).json({ error: 'Credenciales inválidas' });
     }

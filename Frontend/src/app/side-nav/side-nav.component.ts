@@ -18,6 +18,7 @@ export class SideNavComponent implements OnInit, OnDestroy{
   mode: MatDrawerMode = 'side';
   opened: boolean = true;
   isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
   private authStatusSubscription!: Subscription;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -26,6 +27,7 @@ export class SideNavComponent implements OnInit, OnDestroy{
     this.authStatusSubscription = this.authService.authStatus$.subscribe(status => {
       this.isAuthenticated = status;
     });
+    this.isAdmin = this.authService.isAdmin();
   }
 
   ngOnDestroy() {

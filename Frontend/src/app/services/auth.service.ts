@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl2 = 'http://localhost:1000';
-  private apiUrl = 'https://masterodatabase.cloud';
+  private apiUrl = environment.apiUrl;
 
   private authStatus = new BehaviorSubject<boolean>(this.isAuthenticated());
-
   authStatus$ = this.authStatus.asObservable();
 
   constructor(private http: HttpClient) {}
@@ -19,8 +19,9 @@ export class AuthService {
   login(username: string, password: string): Observable<boolean> {
     return this.http.post<any>(`${this.apiUrl}/login`, { username, password }).pipe(
       map(response => {
-        if (response.token) {
+        if (response.token && response.role) {
           localStorage.setItem('authToken', response.token);
+          localStorage.setItem('userRole', response.role);
           this.authStatus.next(true);
           return true;
         } else {
@@ -43,8 +44,13 @@ export class AuthService {
     return !!token;
   }
 
+  isAdmin(): boolean {
+    return localStorage.getItem('userRole') === 'admin';
+  }
+
   logout(): void {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('userRole');
     this.authStatus.next(false);
   }
 }
