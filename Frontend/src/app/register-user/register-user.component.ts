@@ -30,12 +30,12 @@ export class RegisterUserComponent implements OnInit {
     if (this.registerForm.valid) {
       this.authService.registerUser(this.registerForm.value).subscribe(
         () => {
-          this.snackBar.open('User registered successfully', 'Close', { duration: 5000 });
+          this.snackBar.open('Usuario Registrado con Exito', 'Close', { duration: 5000 });
           this.registerForm.reset();
         },
         (error: any) => {
           console.error('Error registering user:', error);
-          this.snackBar.open('Error registering user', 'Close', { duration: 5000 });
+          this.snackBar.open('Error Registrando Usuario', 'Close', { duration: 5000 });
         }
       );
     }
