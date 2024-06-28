@@ -26,7 +26,7 @@ export class RegisterUserComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(): void {
+  registarUsuario(): void {
     if (this.registerForm.valid) {
       this.authService.registerUser(this.registerForm.value).subscribe(
         () => {

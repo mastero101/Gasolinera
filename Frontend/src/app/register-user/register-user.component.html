@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+<form [formGroup]="registerForm" (ngSubmit)="registarUsuario()" class="register-form">
     <mat-form-field appearance="fill">
       <mat-label>Usuario</mat-label>
       <input matInput formControlName="username" required>
@@ -17,6 +17,6 @@
       </mat-select>
     </mat-form-field>
   
-    <button mat-stroked-button color="primary" type="submit" [disabled]="!registerForm.valid">Register</button>
+    <button mat-stroked-button color="primary" type="submit" [disabled]="!registerForm.valid">Registrar</button>
 </form>
   
