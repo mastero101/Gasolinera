@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
@@ -35,8 +35,16 @@ export class AuthService {
     );
   }
 
-  register(username: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, { username, password });
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
+  registerUser(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData, { headers: this.getAuthHeaders() });
   }
 
   isAuthenticated(): boolean {

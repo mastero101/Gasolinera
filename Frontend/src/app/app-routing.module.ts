@@ -4,6 +4,7 @@ import { FuelRecordTableComponent } from './fuel-record-table/fuel-record-table.
 import { FuelRecordRegisterComponent } from './fuel-record-register/fuel-record-register.component';
 import { FuelRecordEditComponent } from './fuel-record-edit/fuel-record-edit.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterUserComponent } from './register-user/register-user.component';
 
 import { AuthGuard } from './guard/auth.guard';
 import { AdminGuard } from './guard/admin.guard';
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'fuel-table', component: FuelRecordTableComponent, canActivate: [AuthGuard] },
   { path: 'fuel-register', component: FuelRecordRegisterComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'fuel-edit', component: FuelRecordEditComponent, canActivate: [AuthGuard, AdminGuard] }
+  { path: 'fuel-edit', component: FuelRecordEditComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'register-user', component: RegisterUserComponent, canActivate: [AuthGuard, AdminGuard]}
 ];
 
 @NgModule({

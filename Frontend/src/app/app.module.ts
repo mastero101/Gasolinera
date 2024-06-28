@@ -33,6 +33,7 @@ import { LoginComponent } from './login/login.component';
 
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guard/auth.guard';
+import { RegisterUserComponent } from './register-user/register-user.component';
 
 @NgModule({
   declarations: [	
@@ -42,6 +43,7 @@ import { AuthGuard } from './guard/auth.guard';
       FuelRecordEditComponent,
       LoginComponent,
       SideNavComponent,
+      RegisterUserComponent,
    ],
   imports: [
     BrowserModule,

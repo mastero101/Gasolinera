@@ -5,6 +5,7 @@
         <a mat-list-item routerLink="/fuel-table" (click)="toggleSidenav()">Tabla</a>
         <a mat-list-item routerLink="/fuel-register" (click)="toggleSidenav()">Registrar</a>
         <a mat-list-item routerLink="/fuel-edit" (click)="toggleSidenav()">Editar</a>
+        <a mat-list-item routerLink="/register-user" *ngIf="isAuthenticated" (click)="toggleSidenav()">Registrar Usuario</a>
         <a mat-list-item *ngIf="isAuthenticated" (click)="logout()">Logout</a>
       </mat-nav-list>
     </mat-sidenav>
