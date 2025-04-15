@@ -1,4 +1,4 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://localhost:1000',
+    apiUrl: 'https://masteroscdn.cloud/database',
 };
